@@ -1,7 +1,9 @@
+import axios from "axios";
 import { useState } from "react";
 
 function Create() {
 
+    //create arrays for adding each statement into Log
     const[Owner, setOwner] = useState([]);
     const[Make, setMake] = useState([]);
     const[Model, setModel] = useState([]);
@@ -9,29 +11,37 @@ function Create() {
     const[Engine, setEngine] = useState([]);
     const[Problem, setProblem] = useState([]);
 
+    //handles and adds to database
     const handler = (e) => {
 
         e.preventDefault();
 
-        const Car = {
-            Owner:Owner,
-            Make:Make,
-            Model:Model,
-            Year:Year,
-            Engine:Engine,
-            Problem:Problem
+        const car = {
+            owner:Owner,
+            make:Make,
+            model:Model,
+            year:Year,
+            engine:Engine,
+            problem:Problem
         }
+
+        //posts request through port
+        axios.post("http://localhost:4000/api/cars", car)
+        .then()
+        .catch();
 
     }
 
     return (
-        <div align="center">
+        //Car card user layout
+        <div align="center" >
+            <form onSubmit={handler}>
                 <div className="form-group" >
                     <label>Please enter Car Owner: </label>
                     <input type="text"
                     className="form-control"
-                    value={Owner}
-                    onChange={ (e) => { setOwner(e.target.value) }}/>
+                    value={Owner} 
+                    onChange={ (e) => { setOwner(e.target.value) }}/> 
                 </div> 
                 <div className="form-group">
                     <label>Please enter Car Make: </label>
@@ -70,6 +80,7 @@ function Create() {
                 </div>
                 <input type="submit"
                 value="Add Car"/>
+            </form>
         </div>
     )
 }

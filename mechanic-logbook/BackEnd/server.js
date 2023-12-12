@@ -3,6 +3,17 @@ const express = require('express');
 const app = express();
 const port = 4000;
 
+//add Cors to the server
+const cors = require('cors');
+app.use(cors());
+app.use(function(req, res, next) {
+res.header("Access-Control-Allow-Origin", "*");
+res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+res.header("Access-Control-Allow-Headers",
+"Origin, X-Requested-With, Content-Type, Accept");
+next();
+});
+
 //npm i body-parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,33 +31,46 @@ async function main() {
 
 //defining the structure of "Car" properties
 const CarSchema = new mongoose.Schema({
-    Owner: String,
-    Make: String,
-    Model: String,
-    Year: String,
-    Engine: String,
-    Problem: String
+    owner: String,
+    make: String,
+    model: String,
+    year: String,
+    engine: String,
+    problem: String
 })
 
 //accessing and defining to the Car model
-const CarModel = mongoose.model('Cars', CarSchema )
+const CarModel = mongoose.model('cars', CarSchema )
 
 
 //adding to Car from 
-app.post('/api/Cars', (req,res) => {
+app.post('/api/cars', (req,res) => {
     console.log(req.body);
     CarModel.create({
-        Owner: req.body.Owner,
-        Make: req.body.Make,
-        Model: req.body.Model,
-        Year: req.body.Year,
-        Engine: req.body.Engine,
-        Problem: req.body.Problem
+        owner: req.body.owner,
+        make: req.body.make,
+        model: req.body.model,
+        year: req.body.year,
+        engine: req.body.engine,
+        problem: req.body.problem
     })
 
     //passing the id to the database
     .then(() => {res.send("Car Added to log")})
     .catch(() => {res.send("Car not added to log!")});
+})
+
+app.get('/api/cars', async(req, res) =>{
+    
+    let cars = await CarModel.find({});
+    res.json(cars);
+  
+})
+
+app.get('/api/cars/:id', async(req, res) => {
+
+    let car = await CarModel.findbyId(req.params.id);
+    res.json(car);
 })
 
 //app listening for requests
