@@ -4,15 +4,16 @@ import axios from 'axios';
 
 function Carlist() {
 
-    const [data, setData] = useState([]);
+    //set instances of data
+    const [car, setCar] = useState([]);
 
     useEffect(
         () => {
-
+            //axios request to darabase
             axios.get("http://localhost:4000/api/cars")
             .then( (response) => {
-
-                setData(response.data);
+                //set array to instances
+                setCar(response.data);
             })
             .catch(
                 (error) => {
@@ -21,10 +22,10 @@ function Carlist() {
             )
         }, []
     );
-
+    //return array 
     return(
         <div>
-            <Car myCars = {data}></Car>
+            <Car myCars = {car}></Car>
         </div>
     )
 }

@@ -60,6 +60,7 @@ app.post('/api/cars', (req,res) => {
     .catch(() => {res.send("Car not added to log!")});
 })
 
+//find and pass data as json
 app.get('/api/cars', async(req, res) =>{
     
     let cars = await CarModel.find({});
@@ -67,6 +68,7 @@ app.get('/api/cars', async(req, res) =>{
   
 })
 
+//find each id and display
 app.get('/api/cars/:id', async(req, res) => {
 
     let car = await CarModel.findbyId(req.params.id);

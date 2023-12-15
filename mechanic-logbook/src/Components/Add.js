@@ -1,10 +1,9 @@
-function Add() {
-    return(
-        <div>
-            <h2>This is the Add page</h2>
-        </div>
-    );
+import axios from "axios";
+import { useEffect } from "react";
 
+function Add() {
+    
+    
 }
 
 export default Add;
