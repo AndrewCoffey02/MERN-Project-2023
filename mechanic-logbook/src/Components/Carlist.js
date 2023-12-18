@@ -22,10 +22,20 @@ function Carlist() {
             )
         }, []
     );
+
+    const Reload = (e) => {
+        axios.get('http://localhost:4000/api/cars')
+        .then((response) => {
+            setCar(response.data);
+        })
+        .catch((error) => {
+        })
+    }
+
     //return array 
     return(
         <div>
-            <Car myCars = {car}></Car>
+            <Car myCars = {car} reloadData={Reload}></Car>
         </div>
     )
 }

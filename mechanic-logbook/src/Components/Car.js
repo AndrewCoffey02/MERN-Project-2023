@@ -1,13 +1,12 @@
 import Card from "./Card";
 
-function Car(car) {
+export default function Car(car) {
 
     //return as array
     return car.myCars.map(
         (car) => {
-            return <Card myCar={car} key={car._id}></Card>
+            return <Card myCar={car} key={car._id} Reload={() => {car.reloadData()}}></Card>
         } 
     );
 }
 
-export default Car;

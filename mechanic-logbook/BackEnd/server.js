@@ -75,6 +75,14 @@ app.get('/api/cars/:id', async(req, res) => {
     res.json(car);
 })
 
+app.delete('/api/cars/:id', async(req, res) =>{
+
+    console.log("Deleted list of id: "+req.params.id);
+
+    let deleteCar = await CarModel.findByIdAndDelete(req.params.id);
+    res.json(deleteCar);
+})
+
 //app listening for requests
 app.listen(port, () => {
     console.log(`App, listening on port ${port}`)
