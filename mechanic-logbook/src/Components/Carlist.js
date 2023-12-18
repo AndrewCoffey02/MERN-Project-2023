@@ -23,11 +23,14 @@ function Carlist() {
         }, []
     );
 
+    //reload page
     const Reload = (e) => {
         axios.get('http://localhost:4000/api/cars')
         .then((response) => {
+            //send data on request
             setCar(response.data);
         })
+        //request error
         .catch((error) => {
         })
     }

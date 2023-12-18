@@ -19,13 +19,16 @@ export default function Cards(car) {
                 </Card.Body>
                 <Button variant="danger" classname="mb-2 text-muted" onClick={
                     (e) => {
+                        //ignore default function
                         e.preventDefault();
-
+                        //http request to delete car from database
                         axios.delete('http://localhost:4000/api/cars/'+car.myCar._id)
                         .then((res) => {
 
+                            // implements reload method
                            let Reload = car.Reload();
                         })
+                        //request error
                         .catch(console.error());
                     }
                 }>Finished</Button>
