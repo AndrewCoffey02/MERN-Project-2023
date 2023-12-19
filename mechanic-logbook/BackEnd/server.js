@@ -75,12 +75,20 @@ app.get('/api/cars/:id', async(req, res) => {
     res.json(car);
 })
 
+//deletes card
 app.delete('/api/cars/:id', async(req, res) =>{
 
     console.log("Deleted list of id: "+req.params.id);
 
     let deleteCar = await CarModel.findByIdAndDelete(req.params.id);
     res.json(deleteCar);
+})
+
+//updates card 
+app.delete('/api/cars/:id',  async(req, res) =>{
+
+    let updateCar = await CarModel.findByIdAndUpdate(req.params.id, req.body, {new:true});
+    res.send(updateCar);
 })
 
 //app listening for requests
