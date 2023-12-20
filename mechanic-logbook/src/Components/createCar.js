@@ -27,8 +27,6 @@ function Create() {
 
         //posts request through port
         axios.post("http://localhost:4000/api/cars", car)
-        .then()
-        .catch();
 
     }
     function clickMe() {
