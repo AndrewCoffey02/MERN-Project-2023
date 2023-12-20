@@ -1,11 +1,11 @@
 import Card from "./Card";
 
-export default function Car(car) {
+export default function Car(cars) {
 
     //return as array
-    return car.myCars.map(
+    return cars.myCars.map(
         (car) => {
-            return <Card myCar={car} key={car._id} Reload={()=>{car.reloadData()}}></Card>
+            return <Card myCar={car} key={car._id} Reload={()=>{cars.ReloadData();}}></Card>
         } 
     );
 }

@@ -31,14 +31,13 @@ function Carlist() {
             setCar(response.data);
         })
         //request error
-        .catch((error) => {
-        })
-    }
+        .catch(console.error());
+    };
 
     //return array 
     return(
         <div>
-            <Car myCars = {car} reloadData={Reload}></Car>
+            <Car myCars = {car} ReloadData={Reload}></Car>
         </div>
     )
 }

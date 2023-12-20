@@ -63,32 +63,32 @@ app.post('/api/cars', (req,res) => {
 //find and pass data as json
 app.get('/api/cars', async(req, res) =>{
     
-    let cars = await CarModel.find({});
-    res.json(cars);
+    let car = await CarModel.find({});
+    res.json(car);
   
 })
 
-//find each id and display
+//Search by ID
 app.get('/api/cars/:id', async(req, res) => {
 
-    let car = await CarModel.findbyId(req.params.id);
+    let car = await CarModel.findById(req.params.id);
     res.json(car);
 })
 
 //deletes card
-app.delete('/api/cars/:id', async(req, res) =>{
+app.delete('/api/car/:id', async(req, res) =>{
 
     console.log("Deleted list of id: "+req.params.id);
 
-    let deleteCar = await CarModel.findByIdAndDelete(req.params.id);
-    res.json(deleteCar);
+    let car = await CarModel.findByIdAndDelete(req.params.id);
+    res.json(car);
 })
 
 //updates card 
-app.delete('/api/cars/:id',  async(req, res) =>{
+app.put("/api/cars/:id", async(req, res) =>{ 
 
-    let updateCar = await CarModel.findByIdAndUpdate(req.params.id, req.body, {new:true});
-    res.send(updateCar);
+    let car = await CarModel.findByIdAndUpdate(req.params.id, req.body, {new:true});
+    res.send(car);
 })
 
 //app listening for requests

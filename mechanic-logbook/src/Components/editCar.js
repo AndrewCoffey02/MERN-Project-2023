@@ -1,56 +1,68 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Button } from "bootstrap";
+import CloseButton from "react-bootstrap/esm/CloseButton";
 
-function Edit() {
+export default function Edit() {
 
+    //declare id string
     let {id} = useParams();
 
-    const[Owner, setOwner] = useState('');
-    const[Make, setMake] = useState('');
-    const[Model, setModel] = useState('');
-    const[Year, setYear] = useState('');
-    const[Engine, setEngine] = useState('');
-    const[Problem, setProblem] = useState('');
+    // create card objects
+    const[owner, setOwner] = useState('');
+    const[make, setMake] = useState('');
+    const[model, setModel] = useState('');
+    const[year, setYear] = useState('');
+    const[engine, setEngine] = useState('');
+    const[problem, setProblem] = useState('');
 
+    // declare navigate
     const navigate = useNavigate();
 
-    useEffect(() => {
+    useEffect(
+        () => {
 
+        // http request for the current state
         axios.get('http://localhost:4000/api/cars/'+id)
-        .then((res) => {
+            .then((response) => {
 
-            setOwner(res.data.Owner);
-            setMake(res.data.Make);
-            setModel(res.data.Model);
-            setYear(res.data.Year);
-            setEngine(res.data.Engine);
-            setProblem(res.data.Problem);
-        })
-        .catch(
-            console.error()
-        )
-
-    },[])
-
+                setOwner(response.data.owner);
+                setMake(response.data.make);
+                setModel(response.data.model);
+                setYear(response.data.year);
+                setEngine(response.data.engine);
+                setProblem(response.data.problem);
+            })
+            .catch(
+                console.error()
+            );
+        },[]
+    );
+    
+    //submit method 
     const submitHandler = (e) => {
-        e.preventdefault();
+
+        e.preventDefault();
 
         const car = {
-            owner:Owner,
-            make:Make,
-            model:Model,
-            year:Year,
-            engine:Engine,
-            problem:Problem
+            owner:owner,
+            make:make,
+            model:model,
+            year:year,
+            engine:engine,
+            problem:problem
         }
 
-        axios.put("http://localhost:4000/api/cars/"+id, car)
+        //navigate back to main page
+        axios.put('http://localhost:4000/api/cars/'+id, car)
         .then((res) => {
-            navigate('/read');
+            navigate('/Carlist');
         })
         .catch(console.error());
     }
+
+    //add pop up when submitted
     function clickMe() {
         alert("You have submitted to list");
     }
@@ -64,42 +76,42 @@ function Edit() {
                     <label>Please edit Car Owner: </label>
                     <input type="text"
                     className="form-control"
-                    value={Owner} 
+                    value={owner} 
                     onChange={ (e) => { setOwner(e.target.value) }}/> 
                 </div> 
                 <div className="form-group">
                     <label>Edit car Make: </label>
                     <input type="text"
                     className="form-control"
-                    value={Make}
+                    value={make}
                     onChange={ (e) => { setMake(e.target.value) }}/>
                 </div>
                 <div className="form-group">
                     <label>Edit car model:  </label>
                     <input type="text"
                     className="form-control"
-                    value={Model}
+                    value={model}
                     onChange={ (e) => { setModel(e.target.value) }}/>
                 </div>
                 <div className="form-group">
                     <label>Edit car year: </label>
                     <input type="text"
                     className="form-control"
-                    value={Year}
+                    value={year}
                     onChange={ (e) => { setYear(e.target.value) }}/>
                 </div>
                 <div className="form-group">
                     <label>Edit Car Engine size: </label>
                     <input type="text"
                     className="form-control"
-                    value={Engine}
+                    value={engine}
                     onChange={ (e) => { setEngine(e.target.value) }}/>
                 </div>
                 <div className="form-group">
                     <label>Edit car problem: </label>
                     <input type="text"
                     className="form-control"
-                    value={Problem}
+                    value={problem}
                     onChange={ (e) => { setProblem(e.target.value) }}/>
                 </div>
                 <input type="submit"
