@@ -1,41 +1,17 @@
-import Car from "./Car";
-import axios from "axios";
-import { useState, useEffect } from "react";
 
-export default function Carlist() {
+export default function Home() {
 
-    //set instances of data
-    const [car, setCar] = useState([]);
-    const [recentCar, setRecentCar] = useState([]);
+return(
+    <div align="center">
+        <h2>Welcome to the Mechanic Logbook</h2>
+        <h3>Here you can: </h3>
+        <ul>
+        <li>Add A Car details needing Fixing (Add Car)</li>
+        <li>Display your list (Car)</li>
+        <li>Update a Cars details</li>
+        <li>Delete Car details</li>
+        </ul>
+    </div>
+)
 
-    useEffect(
-        () => {
-            //axios request to darabase
-            axios.get("http://localhost:4000/api/cars")
-            .then( (response) => {
-                //set array to instances
-                setCar(response.data);
-            })
-            .catch(
-                (error) => {
-                    console.error(error);
-                }
-            )
-        }, []
-    );
-
-    const RecentCar = () => {
-
-        if(car.length > 0) {
-            recentCar(car[0]);
-        }
-    }
-
-    //return array 
-    return(
-        <div align="center">
-            <h2>Most Recent Car: </h2>
-            <Car myCars = {recentCar}></Car>
-        </div>
-    )
 }
