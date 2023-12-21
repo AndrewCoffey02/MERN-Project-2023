@@ -3,6 +3,11 @@ const express = require('express');
 const app = express();
 const port = 4000;
 
+//request files from build folder
+const path = require('path');
+app.use(express.static(path.join(__dirname, '../build')));
+app.use('/static', express.static(path.join(__dirname, 'build//static')));
+
 //add Cors to the server
 const cors = require('cors');
 app.use(cors());
@@ -90,6 +95,11 @@ app.put("/api/cars/:id", async(req, res) =>{
     let car = await CarModel.findByIdAndUpdate(req.params.id, req.body, {new:true});
     res.send(car);
 })
+
+//send requests to build files
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/../build/index.html'));
+});
 
 //app listening for requests
 app.listen(port, () => {
