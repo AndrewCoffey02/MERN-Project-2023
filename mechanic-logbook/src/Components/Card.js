@@ -1,8 +1,7 @@
 import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Cards(car) {
@@ -20,14 +19,13 @@ export default function Cards(car) {
             //request error
             .catch(console.error());
     }
-
+    //navigate declare
     const navigate = useNavigate();
 
     const EditPage = (e) => {
         e.preventDefault();
         navigate('/editCar/'+car.myCar._id);
     }
-
 
     return (
         //Card display
@@ -48,7 +46,6 @@ export default function Cards(car) {
                         </Dropdown.Menu>
                     </Dropdown>
                 </Card.Body>
-                <Button variant="success" className="mb-2 text-muted">Mark as Finished</Button>
 
             </Card>
         </div>
